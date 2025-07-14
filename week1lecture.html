@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 1: Introduction to Information Security - Interactive Notes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 1rem auto;
+        }
+
+        .student-info input {
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .student-info input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .icebreaker {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 1.5rem 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 3px solid #f39c12;
+        }
+
+        .icebreaker .topic-header {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 1.5rem 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .topic-header {
+            background: linear-gradient(135deg, #3742fa, #5352ed);
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .topic-header:hover {
+            background: linear-gradient(135deg, #2f3542, #40407a);
+        }
+
+        .topic-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .topic-content {
+            padding: 2rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .topic-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .activity-section {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .activity-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .interactive-element {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00b894, #00a085);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .role-play-area {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .role-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .role-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .role-card.selected {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .card-sorting {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .card-column {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            min-height: 300px;
+        }
+
+        .scenario-card {
+            background: white;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            cursor: grab;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .drop-zone {
+            min-height: 50px;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .cia-triad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .cia-pillar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 3px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .cia-pillar:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .cia-pillar.confidentiality { border-color: #e74c3c; }
+        .cia-pillar.integrity { border-color: #f39c12; }
+        .cia-pillar.availability { border-color: #27ae60; }
+
+        .threat-stations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .threat-station {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .threat-station:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .planning-pyramid {
+            display: grid;
+            grid-template-rows: auto auto auto;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+
+        .planning-level {
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .strategic { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .tactical { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .operational { background: linear-gradient(135deg, #27ae60, #229954); }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .quiz-options {
+            margin: 1rem 0;
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 10px;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .results-display {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .analogy-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .header h1 { font-size: 2rem; }
+            .card-sorting { grid-template-columns: 1fr; }
+            .role-play-area { grid-template-columns: 1fr; }
+            .cia-triad { grid-template-columns: 1fr; }
+            .student-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔒 Information Security</h1>
+        <p>Lecture 1: Interactive Learning Experience</p>
+        <div class="student-info">
+            <input type="text" placeholder="Student Name" id="studentName">
+            <input type="text" placeholder="Student ID" id="studentId">
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Icebreaker Activity -->
+        <div class="icebreaker">
+            <div class="topic-header">
+                <h2>🚀 Warm-up: What Do You Value Most?</h2>
+            </div>
+            <div class="topic-content" style="display: block;">
+                <div class="activity-section">
+                    <div class="activity-title">💭 Icebreaker: Digital Assets</div>
+                    <p>Think about what you value most on your phone or computer. This will help us understand why information security matters!</p>
+                    
+                    <div class="interactive-element">
+                        <h4>What's most valuable to you on your devices?</h4>
+                        <div class="role-play-area">
+                            <div class="role-card" onclick="selectValue('photos')">
+                                <h3>📸 Photos & Videos</h3>
+                                <p>Personal memories and moments</p>
+                            </div>
+                            <div class="role-card" onclick="selectValue('contacts')">
+                                <h3>📱 Contacts</h3>
+                                <p>Friends, family, business connections</p>
+                            </div>
+                            <div class="role-card" onclick="selectValue('documents')">
+                                <h3>📄 Documents</h3>
+                                <p>School work, personal files</p>
+                            </div>
+                            <div class="role-card" onclick="selectValue('accounts')">
+                                <h3>🔑 Account Access</h3>
+                                <p>Social media, banking, email</p>
+                            </div>
+                        </div>
+                        <div id="valueResult" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 1: Introduction to Information Security -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(1)">
+                <h2>1. Introduction to Information Security</h2>
+                <span class="toggle-icon" id="icon1">▼</span>
+            </div>
+            <div class="topic-content" id="content1">
+                <h3>InfoSec as a Critical Business Function</h3>
+                <p>Information Security protects an organization's information assets and ensures business continuity, regulatory compliance, and competitive advantage.</p>
+                
+                <h3>Communities of Interest</h3>
+                <ul>
+                    <li><strong>Information Security:</strong> Technical expertise in protecting information assets</li>
+                    <li><strong>IT Management:</strong> Technical infrastructure and system administration</li>
+                    <li><strong>General Management:</strong> Business strategy and resource allocation</li>
+                </ul>
+
+                <div class="activity-section">
+                    <div class="activity-title">🎭 Group Role-Play: Design an InfoSec Policy</div>
+                    
+                    <div class="interactive-element">
+                        <h4>Choose Your Role:</h4>
+                        <div class="role-play-area">
+                            <div class="role-card" onclick="selectRole('ciso')" id="role-ciso">
+                                <h3>🛡️ CISO</h3>
+                                <p>Chief Information Security Officer</p>
+                                <small>Focus: Security strategy and risk management</small>
+                            </div>
+                            <div class="role-card" onclick="selectRole('it')" id="role-it">
+                                <h3>💻 IT Admin</h3>
+                                <p>IT Administrator</p>
+                                <small>Focus: Technical implementation and operations</small>
+                            </div>
+                            <div class="role-card" onclick="selectRole('cfo')" id="role-cfo">
+                                <h3>💰 CFO</h3>
+                                <p>Chief Financial Officer</p>
+                                <small>Focus: Budget and business impact</small>
+                            </div>
+                        </div>
+                        
+                        <div id="roleContent" style="display: none; margin-top: 1rem;">
+                            <h4>Your Policy Contribution:</h4>
+                            <textarea class="input-field" id="policyInput" placeholder="Based on your role, what should be included in the InfoSec policy?" rows="4"></textarea>
+                            <button class="btn" onclick="submitPolicy()">Submit Policy Input</button>
+                        </div>
+                        
+                        <div id="policyResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 2: What is Security? -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(2)">
+                <h2>2. What is Security?</h2>
+                <span class="toggle-icon" id="icon2">▼</span>
+            </div>
+            <div class="topic-content" id="content2">
+                <h3>General Definition</h3>
+                <p>Security is the quality or state of being secure—freedom from danger, risk, or loss.</p>
+                
+                <h3>Multilayered Security</h3>
+                <p>Effective security uses multiple layers of protection (defense in depth) rather than relying on a single security measure.</p>
+                
+                <h3>Management Responsibilities</h3>
+                <p>Security is everyone's responsibility, but management must provide leadership, resources, and accountability.</p>
+
+                <div class="activity-section">
+                    <div class="activity-title">💭 Think-Pair-Share: Security Meanings</div>
+                    
+                    <div class="interactive-element">
+                        <h4>Step 1: Think (Individual Brainstorming)</h4>
+                        <p>What does security mean in real life and IT? Add your thoughts:</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <h5>Real Life Security:</h5>
+                                <textarea class="input-field" id="realLifeSecurity" placeholder="e.g., locks on doors, seatbelts..." rows="3"></textarea>
+                            </div>
+                            <div>
+                                <h5>IT Security:</h5>
+                                <textarea class="input-field" id="itSecurity" placeholder="e.g., passwords, firewalls..." rows="3"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="shareSecurityThoughts()">Share Your Thoughts</button>
+                        
+                        <div id="securityResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 3: Specialized Areas of Security -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(3)">
+                <h2>3. Specialized Areas of Security</h2>
+                <span class="toggle-icon" id="icon3">▼</span>
+            </div>
+            <div class="topic-content" id="content3">
+                <h3>Five Key Areas:</h3>
+                <ul>
+                    <li><strong>Physical Security:</strong> Protection of physical assets and facilities</li>
+                    <li><strong>Operations Security:</strong> Protection of operational processes and procedures</li>
+                    <li><strong>Communications Security:</strong> Protection of communication channels and data in transit</li>
+                    <li><strong>Cyber Security:</strong> Protection against cyber threats and attacks</li>
+                    <li><strong>Network Security:</strong> Protection of network infrastructure and data flows</li>
+                </ul>
+
+                <div class="activity-section">
+                    <div class="activity-title">🃏 Card Sorting: Match Scenarios to Security Types</div>
+                    
+                    <div class="interactive-element">
+                        <div class="card-sorting">
+                            <div class="card-column">
+                                <h4>Security Scenarios</h4>
+                                <div class="scenario-card" draggable="true" data-scenario="firewall">
+                                    Firewall breach allowing unauthorized access
+                                </div>
+                                <div class="scenario-card" draggable="true" data-scenario="laptop">
+                                    Laptop theft from employee's car
+                                </div>
+                                <div class="scenario-card" draggable="true" data-scenario="email">
+                                    Intercepted email communications
+                                </div>
+                                <div class="scenario-card" draggable="true" data-scenario="ddos">
+                                    DDoS attack on company website
+                                </div>
+                                <div class="scenario-card" draggable="true" data-scenario="badge">
+                                    Unauthorized person enters secure facility
+                                </div>
+                            </div>
+                            
+                            <div class="card-column">
+                                <h4>Security Types</h4>
+                                <div class="drop-zone" data-type="network">Network Security</div>
+                                <div class="drop-zone" data-type="physical">Physical Security</div>
+                                <div class="drop-zone" data-type="communications">Communications Security</div>
+                                <div class="drop-zone" data-type="cyber">Cyber Security</div>
+                                <div class="drop-zone" data-type="physical">Physical Security</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="checkCardSorting()">Check Answers</button>
+                        <div id="sortingResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 4: Components of Information Security -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(4)">
+                <h2>4. Components of Information Security</h2>
+                <span class="toggle-icon" id="icon4">▼</span>
+            </div>
+            <div class="topic-content" id="content4">
+                <h3>CIA Triad</h3>
+                <div class="cia-triad">
+                    <div class="cia-pillar confidentiality">
+                        <h3>🔒 Confidentiality</h3>
+                        <p>Information is accessible only to authorized individuals</p>
+                    </div>
+                    <div class="cia-pillar integrity">
+                        <h3>🛡️ Integrity</h3>
+                        <p>Information is accurate, complete, and unaltered</p>
+                    </div>
+                    <div class="cia-pillar availability">
+                        <h3>⚡ Availability</h3>
+                        <p>Information is accessible when needed by authorized users</p>
+                    </div>
+                </div>
+
+                <h3>CNSS Model (McCumber Cube)</h3>
+                <p>A comprehensive model that considers information in three states (storage, processing, transmission) across the three CIA dimensions and three countermeasure categories (policy, technology, education).</p>
+
+                <div class="activity-section">
+                    <div class="activity-title">🎯 CIA Triad Scenarios</div>
+                    
+                    <div class="interactive-element">
+                        <div class="quiz-question">
+                            <strong>Scenario 1:</strong> A hacker gains access to customer credit card information
+                            <div class="quiz-options">
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia1" value="confidentiality"> Confidentiality violation
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia1" value="integrity"> Integrity violation
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia1" value="availability"> Availability violation
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <strong>Scenario 2:</strong> Ransomware encrypts all company files, making them inaccessible
+                            <div class="quiz-options">
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia2" value="confidentiality"> Confidentiality violation
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia2" value="integrity"> Integrity violation
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia2" value="availability"> Availability violation
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <strong>Scenario 3:</strong> An attacker modifies financial records without authorization
+                            <div class="quiz-options">
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia3" value="confidentiality"> Confidentiality violation
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia3" value="integrity"> Integrity violation
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cia3" value="availability"> Availability violation
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="checkCIAAnswers()">Check CIA Analysis</button>
+                        <div id="ciaResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 5: Supporting Concepts -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(5)">
+                <h2>5. Supporting Concepts</h2>
+                <span class="toggle-icon" id="icon5">▼</span>
+            </div>
+            <div class="topic-content" id="content5">
+                <h3>Key Supporting Concepts:</h3>
+                <ul>
+                    <li><strong>Privacy:</strong> The right to be left alone and control personal information</li>
+                    <li><strong>Identification:</strong> Claiming an identity (username)</li>
+                    <li><strong>Authentication:</strong> Proving the claimed identity (password)</li>
+                    <li><strong>Authorization:</strong> Granting access rights based on verified identity</li>
+                    <li><strong>Accountability:</strong> Tracking and recording actions for responsibility</li>
+                </ul>
+
+                <div class="activity-section">
+                    <div class="activity-title">🎨 Analogy Activity: Create Your Comparisons</div>
+                    
+                    <div class="interactive-element">
+                        <h4>Create analogies for each concept (like "Authentication is like showing your ID at a club"):</h4>
+                        
+                        <div class="analogy-box">
+                            <h5>Privacy:</h5>
+                            <input type="text" class="input-field" placeholder="Privacy is like..." id="privacyAnalogy">
+                        </div>
+                        
+                        <div class="analogy-box">
+                            <h5>Identification:</h5>
+                            <input type="text" class="input-field" placeholder="Identification is like..." id="identificationAnalogy">
+                        </div>
+                        
+                        <div class="analogy-box">
+                            <h5>Authentication:</h5>
+                            <input type="text" class="input-field" placeholder="Authentication is like..." id="authenticationAnalogy">
+                        </div>
+                        
+                        <div class="analogy-box">
+                            <h5>Authorization:</h5>
+                            <input type="text" class="input-field" placeholder="Authorization is like..." id="authorizationAnalogy">
+                        </div>
+                        
+                        <div class="analogy-box">
+                            <h5>Accountability:</h5>
+                            <input type="text" class="input-field" placeholder="Accountability is like..." id="accountabilityAnalogy">
+                        </div>
+                        
+                        <button class="btn" onclick="generateAnalogies()">Share Analogies</button>
+                        <div id="analogyResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 6: Key InfoSec Concepts -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(6)">
+                <h2>6. Key InfoSec Concepts</h2>
+                <span class="toggle-icon" id="icon6">▼</span>
+            </div>
+            <div class="topic-content" id="content6">
+                <h3>Essential Definitions:</h3>
+                <ul>
+                    <li><strong>Threats:</strong> Potential dangers that could harm assets</li>
+                    <li><strong>Threat Agents:</strong> Entities that carry out threats</li>
+                    <li><strong>Attacks:</strong> Deliberate actions against assets</li>
+                    <li><strong>Exploits:</strong> Techniques used to take advantage of vulnerabilities</li>
+                    <li><strong>Vulnerabilities:</strong> Weaknesses that could be exploited</li>
+                </ul>
+
+                <div class="activity-section">
+                    <div class="activity-title">🔗 Matchmaking Worksheet</div>
+                    
+                    <div class="interactive-element">
+                        <h4>Match definitions, examples, and consequences:</h4>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <h5>Concepts:</h5>
+                                <div class="scenario-card" draggable="true" data-match="threat">Threat</div>
+                                <div class="scenario-card" draggable="true" data-match="vulnerability">Vulnerability</div>
+                                <div class="scenario-card" draggable="true" data-match="attack">Attack</div>
+                                <div class="scenario-card" draggable="true" data-match="exploit">Exploit</div>
+                            </div>
+                            
+                            <div>
+                                <h5>Examples:</h5>
+                                <div class="drop-zone" data-target="threat">Malware</div>
+                                <div class="drop-zone" data-target="vulnerability">Unpatched software</div>
+                                <div class="drop-zone" data-target="attack">SQL injection</div>
+                                <div class="drop-zone" data-target="exploit">Buffer overflow technique</div>
+                            </div>
+                            
+                            <div>
+                                <h5>Consequences:</h5>
+                                <div class="drop-zone" data-target="threat">System compromise</div>
+                                <div class="drop-zone" data-target="vulnerability">Easy entry point</div>
+                                <div class="drop-zone" data-target="attack">Data breach</div>
+                                <div class="drop-zone" data-target="exploit">Unauthorized access</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="checkMatching()">Check Matches</button>
+                        <div id="matchingResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 7: Threat Categories -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(7)">
+                <h2>7. Threat Categories</h2>
+                <span class="toggle-icon" id="icon7">▼</span>
+            </div>
+            <div class="topic-content" id="content7">
+                <h3>Comprehensive Threat Categories</h3>
+                <p>Understanding different types of threats helps in developing appropriate countermeasures.</p>
+
+                <div class="activity-section">
+                    <div class="activity-title">🏢 Threat Category Stations</div>
+                    
+                    <div class="interactive-element">
+                        <div class="threat-stations">
+                            <div class="threat-station">
+                                <h4>💼 Intellectual Property</h4>
+                                <p><strong>Activity:</strong> Discuss examples like music/movie piracy</p>
+                                <textarea class="input-field" placeholder="List 3 IP threats your organization might face..." rows="3"></textarea>
+                            </div>
+                            
+                            <div class="threat-station">
+                                <h4>📊 Quality of Service</h4>
+                                <p><strong>Activity:</strong> Draw dependency diagrams</p>
+                                <textarea class="input-field" placeholder="What services does your organization depend on? (ISP, electricity, etc.)" rows="3"></textarea>
+                            </div>
+                            
+                            <div class="threat-station">
+                                <h4>🕵️ Espionage/Trespass</h4>
+                                <p><strong>Activity:</strong> Analyze a breach from news</p>
+                                <textarea class="input-field" placeholder="Describe a recent data breach case and its impact..." rows="3"></textarea>
+                            </div>
+                            
+                            <div class="threat-station">
+                                <h4>🌪️ Forces of Nature</h4>
+                                <p><strong>Activity:</strong> Disaster planning brainstorm</p>
+                                <textarea class="input-field" placeholder="What would be in your disaster recovery plan?" rows="3"></textarea>
+                            </div>
+                            
+                            <div class="threat-station">
+                                <h4>👤 Human Error/Failure</h4>
+                                <p><strong>Activity:</strong> Password practices skit</p>
+                                <textarea class="input-field" placeholder="Describe a scenario showing poor password practices..." rows="3"></textarea>
+                            </div>
+                            
+                            <div class="threat-station">
+                                <h4>💰 Information Extortion</h4>
+                                <p><strong>Activity:</strong> Ransomware discussion</p>
+                                <textarea class="input-field" placeholder="How would you respond to a ransomware attack?" rows="3"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="compileThreatAnalysis()">Compile Threat Analysis</button>
+                        <div id="threatAnalysisResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic 8: Management & Security Planning -->
+        <div class="topic-card">
+            <div class="topic-header" onclick="toggleTopic(8)">
+                <h2>8. Management & Security Planning</h2>
+                <span class="toggle-icon" id="icon8">▼</span>
+            </div>
+            <div class="topic-content" id="content8">
+                <h3>Leadership vs. Management</h3>
+                <p><strong>Leadership:</strong> Setting vision and inspiring change<br>
+                <strong>Management:</strong> Organizing resources and executing plans</p>
+                
+                <h3>Planning Models</h3>
+                <p><strong>POSDC:</strong> Planning, Organizing, Staffing, Directing, Controlling<br>
+                <strong>POLC:</strong> Planning, Organizing, Leading, Controlling</p>
+
+                <div class="activity-section">
+                    <div class="activity-title">🔺 Planning Pyramid Activity</div>
+                    
+                    <div class="interactive-element">
+                        <div class="planning-pyramid">
+                            <div class="planning-level strategic">
+                                <h3>STRATEGIC PLANNING</h3>
+                                <p>Long-term vision and direction</p>
+                                <div class="drop-zone" data-level="strategic" style="margin-top: 1rem; background: rgba(255,255,255,0.2);"></div>
+                            </div>
+                            
+                            <div class="planning-level tactical">
+                                <h3>TACTICAL PLANNING</h3>
+                                <p>Medium-term implementation plans</p>
+                                <div class="drop-zone" data-level="tactical" style="margin-top: 1rem; background: rgba(255,255,255,0.2);"></div>
+                            </div>
+                            
+                            <div class="planning-level operational">
+                                <h3>OPERATIONAL PLANNING</h3>
+                                <p>Day-to-day activities and procedures</p>
+                                <div class="drop-zone" data-level="operational" style="margin-top: 1rem; background: rgba(255,255,255,0.2);"></div>
+                            </div>
+                        </div>
+                        
+                        <h4>Drag tasks to the appropriate planning level:</h4>
+                        <div class="card-column">
+                            <div class="scenario-card" draggable="true" data-task="strategic">Develop 5-year cybersecurity roadmap</div>
+                            <div class="scenario-card" draggable="true" data-task="operational">Daily security monitoring</div>
+                            <div class="scenario-card" draggable="true" data-task="tactical">Implement new firewall system</div>
+                            <div class="scenario-card" draggable="true" data-task="strategic">Define organizational risk appetite</div>
+                            <div class="scenario-card" draggable="true" data-task="operational">Weekly vulnerability scans</div>
+                            <div class="scenario-card" draggable="true" data-task="tactical">Security awareness training program</div>
+                        </div>
+                        
+                        <button class="btn" onclick="checkPlanningPyramid()">Check Planning Assignments</button>
+                        <div id="planningResults" class="results-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let completedTopics = 0;
+        let selectedRole = '';
+        let selectedValue = '';
+        
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const percentage = (completedTopics / 8) * 100;
+            progressBar.style.width = percentage + '%';
+        }
+        
+        function toggleTopic(topicNumber) {
+            const content = document.getElementById(`content${topicNumber}`);
+            const icon = document.getElementById(`icon${topicNumber}`);
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.textContent = '▼';
+            } else {
+                content.classList.add('active');
+                icon.textContent = '▲';
+                if (!content.dataset.visited) {
+                    content.dataset.visited = 'true';
+                    completedTopics++;
+                    updateProgress();
+                }
+            }
+        }
+        
+        function selectValue(value) {
+            selectedValue = value;
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.target.closest('.role-card').classList.add('selected');
+            
+            const resultDiv = document.getElementById('valueResult');
+            let message = '';
+            
+            switch(value) {
+                case 'photos':
+                    message = '📸 Personal memories are irreplaceable! This highlights the importance of <strong>backup strategies</strong> and <strong>data protection</strong>.';
+                    break;
+                case 'contacts':
+                    message = '📱 Your network is valuable! This shows why <strong>data privacy</strong> and <strong>secure storage</strong> matter.';
+                    break;
+                case 'documents':
+                    message = '📄 Information assets need protection! This demonstrates the need for <strong>access controls</strong> and <strong>data integrity</strong>.';
+                    break;
+                case 'accounts':
+                    message = '🔑 Digital identity is everything! This emphasizes <strong>authentication security</strong> and <strong>account protection</strong>.';
+                    break;
+            }
+            
+            resultDiv.innerHTML = `<h4>Great choice!</h4><p>${message}</p><p>This is exactly why we need Information Security - to protect what matters most to us!</p>`;
+            resultDiv.style.display = 'block';
+        }
+        
+        function selectRole(role) {
+            selectedRole = role;
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById(`role-${role}`).classList.add('selected');
+            document.getElementById('roleContent').style.display = 'block';
+            
+            const policyInput = document.getElementById('policyInput');
+            switch(role) {
+                case 'ciso':
+                    policyInput.placeholder = 'As CISO, focus on security strategy, risk assessment, incident response procedures...';
+                    break;
+                case 'it':
+                    policyInput.placeholder = 'As IT Admin, focus on technical controls, system configurations, backup procedures...';
+                    break;
+                case 'cfo':
+                    policyInput.placeholder = 'As CFO, focus on budget allocation, cost-benefit analysis, business continuity...';
+                    break;
+            }
+        }
+        
+        function submitPolicy() {
+            const input = document.getElementById('policyInput').value;
+            const studentName = document.getElementById('studentName').value || 'Student';
+            const resultDiv = document.getElementById('policyResults');
+            
+            if (input.trim()) {
+                let roleTitle = '';
+                switch(selectedRole) {
+                    case 'ciso': roleTitle = 'Chief Information Security Officer'; break;
+                    case 'it': roleTitle = 'IT Administrator'; break;
+                    case 'cfo': roleTitle = 'Chief Financial Officer'; break;
+                }
+                
+                resultDiv.innerHTML = `
+                    <h4>Policy Contribution Recorded!</h4>
+                    <p><strong>${studentName}</strong> as <strong>${roleTitle}</strong>:</p>
+                    <div style="background: white; padding: 1rem; border-radius: 4px; margin: 0.5rem 0;">${input}</div>
+                    <p>Excellent perspective! Each role brings unique insights to information security policy development.</p>
+                `;
+                resultDiv.style.display = 'block';
+            }
+        }
+        
+        function shareSecurityThoughts() {
+            const realLife = document.getElementById('realLifeSecurity').value;
+            const itSecurity = document.getElementById('itSecurity').value;
+            const resultDiv = document.getElementById('securityResults');
+            
+            if (realLife.trim() || itSecurity.trim()) {
+                resultDiv.innerHTML = `
+                    <h4>Security Thoughts Shared!</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <strong>Real Life Security:</strong>
+                            <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">${realLife}</div>
+                        </div>
+                        <div>
+                            <strong>IT Security:</strong>
+                            <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">${itSecurity}</div>
+                        </div>
+                    </div>
+                    <p>Notice the parallels? Both physical and digital security use similar principles: prevention, detection, and response!</p>
+                `;
+                resultDiv.style.display = 'block';
+            }
+        }
+        
+        function checkCIAAnswers() {
+            const answers = [
+                document.querySelector('input[name="cia1"]:checked'),
+                document.querySelector('input[name="cia2"]:checked'),
+                document.querySelector('input[name="cia3"]:checked')
+            ];
+            
+            const correct = ['confidentiality', 'availability', 'integrity'];
+            const resultDiv = document.getElementById('ciaResults');
+            
+            let score = 0;
+            let feedback = '<h4>CIA Triad Analysis Results:</h4><ul>';
+            
+            answers.forEach((answer, index) => {
+                if (answer && answer.value === correct[index]) {
+                    score++;
+                    feedback += `<li>✅ Scenario ${index + 1}: Correct! ${answer.value.charAt(0).toUpperCase() + answer.value.slice(1)} violation</li>`;
+                } else if (answer) {
+                    feedback += `<li>❌ Scenario ${index + 1}: ${answer.value} - The correct answer is ${correct[index]}</li>`;
+                } else {
+                    feedback += `<li>⚠️ Scenario ${index + 1}: No answer selected</li>`;
+                }
+            });
+            
+            feedback += `</ul><p><strong>Score: ${score}/3</strong></p>`;
+            
+            resultDiv.innerHTML = feedback;
+            resultDiv.style.display = 'block';
+        }
+        
+        function generateAnalogies() {
+            const analogies = {
+                privacy: document.getElementById('privacyAnalogy').value,
+                identification: document.getElementById('identificationAnalogy').value,
+                authentication: document.getElementById('authenticationAnalogy').value,
+                authorization: document.getElementById('authorizationAnalogy').value,
+                accountability: document.getElementById('accountabilityAnalogy').value
+            };
+            
+            const resultDiv = document.getElementById('analogyResults');
+            let output = '<h4>Your Security Analogies:</h4>';
+            
+            Object.entries(analogies).forEach(([concept, analogy]) => {
+                if (analogy.trim()) {
+                    output += `<div class="analogy-box"><strong>${concept.charAt(0).toUpperCase() + concept.slice(1)}:</strong> ${analogy}</div>`;
+                }
+            });
+            
+            output += '<p>Great analogies help us understand complex security concepts through familiar examples!</p>';
+            
+            resultDiv.innerHTML = output;
+            resultDiv.style.display = 'block';
+        }
+        
+        function compileThreatAnalysis() {
+            const threats = document.querySelectorAll('.threat-station textarea');
+            const resultDiv = document.getElementById('threatAnalysisResults');
+            
+            let analysis = '<h4>Comprehensive Threat Analysis:</h4>';
+            let hasContent = false;
+            
+            threats.forEach((textarea, index) => {
+                if (textarea.value.trim()) {
+                    hasContent = true;
+                    const titles = ['Intellectual Property', 'Quality of Service', 'Espionage/Trespass', 'Forces of Nature', 'Human Error/Failure', 'Information Extortion'];
+                    analysis += `<div style="margin: 1rem 0; padding: 1rem; background: white; border-radius: 4px;">
+                        <strong>${titles[index]}:</strong><br>${textarea.value}
+                    </div>`;
+                }
+            });
+            
+            if (hasContent) {
+                analysis += '<p>Excellent threat analysis! Understanding these categories helps in developing comprehensive security strategies.</p>';
+                resultDiv.innerHTML = analysis;
+                resultDiv.style.display = 'block';
+            }
+        }
+        
+        // Drag and drop functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDragAndDrop();
+        });
+        
+        function setupDragAndDrop() {
+            const dragItems = document.querySelectorAll('.scenario-card[draggable="true"]');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            
+            dragItems.forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.dataset.scenario || this.dataset.match || this.dataset.task);
+                    this.style.opacity = '0.5';
+                });
+                
+                item.addEventListener('dragend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('drag-over');
+                });
+                
+                zone.addEventListener('dragleave', function() {
+                    this.classList.remove('drag-over');
+                });
+                
+                zone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('drag-over');
+                    
+                    const data = e.dataTransfer.getData('text/plain');
+                    const isCorrect = this.dataset.type === getCorrectType(data) || 
+                                    this.dataset.target === data || 
+                                    this.dataset.level === data;
+                    
+                    if (isCorrect) {
+                        this.style.backgroundColor = '#d4edda';
+                        this.style.border = '2px solid #28a745';
+                        this.innerHTML += ` ✅`;
+                    } else {
+                        this.style.backgroundColor = '#f8d7da';
+                        this.style.border = '2px solid #dc3545';
+                        this.innerHTML += ` ❌`;
+                    }
+                });
+            });
+        }
+        
+        function getCorrectType(scenario) {
+            const mappings = {
+                'firewall': 'network',
+                'laptop': 'physical',
+                'email': 'communications',
+                'ddos': 'cyber',
+                'badge': 'physical'
+            };
+            return mappings[scenario];
+        }
+        
+        function checkCardSorting() {
+            const resultDiv = document.getElementById('sortingResults');
+            resultDiv.innerHTML = '<h4>Card Sorting Results:</h4><p>Check the highlighted drop zones to see your matches! Green = Correct, Red = Incorrect</p>';
+            resultDiv.style.display = 'block';
+        }
+        
+        function checkMatching() {
+            const resultDiv = document.getElementById('matchingResults');
+            resultDiv.innerHTML = '<h4>Concept Matching Results:</h4><p>Review the highlighted areas to see your matches!</p>';
+            resultDiv.style.display = 'block';
+        }
+        
+        function checkPlanningPyramid() {
+            const resultDiv = document.getElementById('planningResults');
+            resultDiv.innerHTML = '<h4>Planning Pyramid Results:</h4><p>Check the planning levels to see your task assignments!</p>';
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
